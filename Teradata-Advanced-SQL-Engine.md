@@ -69,7 +69,25 @@
 * data warehousing is a process **NOT** a product which manage and assemble data from various sources to answer business questions
 
 ## Data Mart
-*
+* data warehouse is more like an enterpriser-level
+* compare to it, information in data mart pertains to a single department
+* Independent Data Mart
+  * isolated entities entirely separate from the enterprise data warehouse
+  * derived from independent sources 
+  * be viewed as data pirates
+  * have high likelihood of producing data that does not match that of the warehouse
+* Dependent Data Mart
+  * derived from enterprise data warehouse
+  * might(or not) be useful depending on the configuration
+  * permits users to have full access to the enterprise data store
+* Logical Data Mart
+  * a form of dependent data mart
+  * constructed virtually from the physical warehouse
+  * data is presented using a series of SQL views
+
+## Analytic Processing
+* data warehouse is original defined as a decision support system(DSS)
+* OLAP: Online Analytic P
 ***
 <p align="center">
   <img width="100"  alt="END-LOGO"src="the-end.png" />
