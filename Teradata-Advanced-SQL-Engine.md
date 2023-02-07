@@ -12,7 +12,7 @@
   * cross-reference
   * perform complex aggregate calculations
 
-## Common types of Databases
+### Common types of Databases
 * relational: is structured to recognize connections between stored items of information. SQL
 * No-SQL: only to retrieve information
 ***
@@ -33,7 +33,7 @@
 * when the same primary key (name can be different, but contains the same information) is included in another table, it becomes a foreign key.
 * FK must agrees with PK
 
-## Data Modelling
+### Data Modelling
 * 3NF: third normal form: rules and guidelines about how the data model should look, which means which columns should belong to which table.
 * three types of data models:
   * relational: most common type and reflect business rules
@@ -57,7 +57,7 @@
 * create, retrieve update and manage data
 * create reports, enforce database rules/constraints and maintain schema
   
-## SQL
+### SQL
 * structured query language
 * used to create, manage, manipulate and query database objects
 ***
@@ -68,7 +68,7 @@
 * carry many years' worth of detailed data so historical trends can be analyzed
 * data warehousing is a process **NOT** a product which manage and assemble data from various sources to answer business questions
 
-## Data Mart
+### Data Mart
 * data warehouse is more like an enterpriser-level
 * compare to it, information in data mart pertains to a single department
 * Independent Data Mart
@@ -85,9 +85,110 @@
   * constructed virtually from the physical warehouse
   * data is presented using a series of SQL views
 
-## Analytic Processing
+### Analytic Processing
 * data warehouse is original defined as a decision support system(DSS)
-* OLAP: Online Analytic P
+* OLAP: Online Analytic Processing
+  * comprise the complex analysis that are performed on a data set
+  * data mining, querying, pivoting, slicing, dicing, drilling, reporting and other decision-support applications
+  * a data warehouse can be used without OLAP
+* OLTP: Online Transaction Processing
+  * manages business applications and collects day to day data
+  * different than a data warehouse
+  * access small number of records or a few tables
+
+### Data Warehouse Architecture
+ ![alt text](DWarch.PNG "Data Warehouse Architecture")
+* Acquisition: entry into data warehouse, raw data is acquired
+* Integration: responsible for integrating data from multiple systems with common metrics and summaries
+* Access: provide easy access to the data using various analytic methods
+* Tiers:
+ ![alt text](tiers.PNG "Tiers")
+Not all data tiers are used for every feed coming in from a data source.
+
+### Data Flow
+1. Data Warehouse: data is collected and moved to a dedicated server contains a data warehouse
+2. Analysis: data can be formatted, validated, recognized, summarized and supplemented
+3. data is merged with data from many other sources
+4. resulting data warehouse becomes the main source of information for data mining, OLAP, market research, report generation and analysis
+
+### Types of Implementation
+* Centralized
+  *  useful for small and mid-size data warehouses
+  *  a single physical repository
+  *  serves separate department within an organization at the same time using a single data model
+* Federated
+  * share information among a number of different systems
+  * master file will be shared and other system can use it
+  * can reduce response time
+* Data Mart
+  * within a single organizational data warehouse repository
+  * condensed an focused version of data warehouse dedicated to a specific business need
+  * commonly multiple data marts to be used in order to server the needs of each department
+
+### Deployment Options
+* no right or wrong answers when choosing if to deploy a data warehouse on-prem or over the cloud
+* On-prem
+  * buying software and hardware from a data warehousing company
+  * gives organization total control
+  * most secure
+  
+* Cloud
+  * in public or private cloud
+  * trust issue is hard to overcome
+  * require high bandwidth
+  * private cloud can provide more security
+***
+## Module 5 *Teradata Advanced SQL Engine Introduction*
+* stores current and historical data in one location
+* enables effective data analysis and reporting
+* a central repository of integrated data
+* supports high performance, diverse queries and in-database analytics
+* built-in parallelism enables faster processing
+  
+### Connect to Teradata
+* client submit a SQL request to the Teradata Advanced SQL Engine
+* the engine also receives response for the user 
+* business-led, technology enabled
+
+### Features and Benefits
+* single version of business
+* high availability
+* high scalability
+* teradata everywhere
+* unlimited parallelism
+
+### Objects with the Engine
+* Partitioning: larger tables within a database is divided into smaller tables, can run faster
+* tables, views, macros, triggers, stored procedures, and user-defined functions
+* partitioned table: set of columns
+* set table: no duplicate rows in a table
+* secondary index: allows optional ways for the system to access the rows of a table
+* stored procedure: a combination of pre defined procedural statements
+* join index: enable join queries to be resolved without accessing or joining the actual tables
+* user: as a collection of tables, views, macros, triggers, stored procedures, join indices and access right
+* data types: specify the type of each values
+* view: virtual table, not storing any information
+* fallback: protecting the data against AMP failure
+* macro: bundles multiple functions together
+* trigger: defines a catalyst action and subsequent activities
+
+#### Metadata
+* Means of creation of the data
+* Purpose of the data
+* Time and date of creation along with the creator and author of the data
+*Location on a computer network where the data was created
+* Standards used and file size
+
+#### Data Dictionary
+* owned by the system user DBC
+* composed of tables and views
+* views provide access to the information in the tables
+<p>
+  <img width="400"  alt="Tables Store"src="tablestore.PNG" />
+  <img width="400"  alt="Views Store"src="viewstore.PNG" />
+</p>
+<br>
+
 ***
 <p align="center">
   <img width="100"  alt="END-LOGO"src="the-end.png" />
