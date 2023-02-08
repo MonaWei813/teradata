@@ -203,11 +203,99 @@ Not all data tiers are used for every feed coming in from a data source.
 * Parsing Engine: PE performs session control, query parsing, security validation, query optimization and query dispatch.Interprets sequel requests, receives input records and passes data.Send messages through message passing layer to AMP.
 * Access Module Processor: AMP is responsible for managing a portion of the database. Do all the physical work and generating an answer set.
 * Virtual Disk Space: is associated with an AMP.Tables and rows are stored in this space. Usually assigned to two or more disk drives in a disk array.
-* Message Passing Layer: is the communication layer which is responsible for carrying messages between virtual processors(AMP and PE)
-* <p>
+* Message Passing Layer: is the communication layer which is responsible for carrying messages between virtual processors(AMP and PE) and making parallelism possible. It merges answer sets back to PE. It is a combination of PDE, BYNET software and BYNET hardware for MPP system.
+  
+<p>
   <img width="250"  alt="MPL"src="mpl.PNG" />
 </p>
 
+* Parallel Database Extensions(PDE): software interface layer that lies between the operating system and Teradata Advanced SQL Engine. Supports the parallelism which give the Engine its speed and linear scalability. The ability include:
+  * Run in a parallel environment.
+  * Execute Vprocs.
+  * Manage and prioritize Teradata Advanced SQL Engine workloads.
+  * Consistently manage memory, I/O, and messaging system interface across multiple OS platforms.
+
+### Space Management
+* before defining application users and databases, the database administrator creates a special administrative user and commonly assigns most of the space in the system to that user.
+* space assigned to those objects is virtually separated from the administrative user's space
+*  As these users and databases create their own objects, the administrator's space is added to these new users and databases.
+*  Once space is allocated to a table, it cannot be reverted without the database administrator's permission.
+*  The administrator re-organizes and re- allocates the space and partitions the data. 
+*  Teradata’s approach to space management is flexible, dynamic and requires minimal involvement of the database administrator.
+<p>
+  <img width="600"  alt="Database Administrator"src="dba.PNG" />
+</p>
+
+#### Type of spaces
+* Permanent Space
+  * Perm space is used for storing the data rows of tables and is the maximum storage assigned to a user and/or database.
+  *  Not pre-allocated or reserved, it is available on demand. Space is deducted from the owner's allocation as it is used.
+* Spool Space
+  * unused Perm space that holds intermediate query results or formatted answer sets for queries. 
+  * Once the query is completed, the space is released.  
+  * All databases have an upper limit of Spool Space. Theoretically, a user could use all the unallocated space in the system for their query.
+* Temporary Space
+  * sometimes referred to as Temp Space and is used for global temporary tables. 
+  * Tables created in Temp Space will survive a restart and remain available to the user until their session is terminated.
+* Database Space is the 
+  * total amount of space available in the database to create and store objects that need permanent space.
+  *  All space assigned to the User/Database is equally divided among all the of AMPs in the system.
+***
+
+## Module 6 *Data Distribution and Access Introduction*
+* A distributed database represents multiple interconnected databases spread out across several sites connected by a network.
+* uses hashing to dynamically distribute data across all AMPs.
+* Hashing is the transformation of a string of characters into a usually shorter fixed-length value or key that represents the original string.
+* provides optimized performance with minimal tuning and no manual reorganizations, resulting in lower administration costs and reduced development time.
+* generates a row hash by hashing the values of the PI columns. The row hash and a sequence number, which is assigned to distinguish between rows with the same row hash within a table, are collectively called a row identifier and uniquely identify each row in a table.
+* Teradata **QueryGrid** provides seamless, high-performing data access, processing, and movement across one or more systems in heterogeneous analytical environments.
+  
+### Metadata
+* stored in tables that belong to user DBC and is reserved for use by the system.
+* information is stored in the Data Dictionary. 
+* The Data Dictionary contains metadata about the objects in the system like privileges, system events, and system usage. Views provide access to the information in the tables.
+
+### Indexes
+* Primary Index
+  * a unique identifier that uniquely identifies each row.
+  * The PI is defined when the table is created and is there for two major reasons:
+    * To determine data distribution
+    * Enhance performance
+    * Indexes can provide an easier and faster way of accessing and locating data and thus reducing unwanted inputs and outputs.
+  * Accessing data with equality on Primary Index result in a one AMP operation, which is extremely fast and efficient. Similar improvements can be seen with the use of other indexes.
+  * A good choice of Primary Index will ensure even data distribution.
+* No Primary Index
+  *  simply a table without a primary index.
+  *  NOPI tables are typically used as staging tables for the initial data load.
+* Secondary Index
+  * can be used to enforce uniqueness on a column. 
+  * The SI also provides an alternate path to access data.
+* Join Index
+  * an indexing structure containing columns from multiple tables, specifically the resulting columns from one or more tables. 
+  * The join Index (JI) is an optional index which may be created by the user to improve performance of complex queries.
+
+#### Relationship between PI and PK
+* PI  
+  * A primary key is a logical database concept. 
+  * Relational modeling convention which ensures each row to be uniquely identified
+  * Consists of one or more columns
+  * Must not be null and must be unique
+  * Logical concept of data modeling
+* PK
+  * Teradata convention which determines how the row will be stored and accessed
+  * Consists of more or more columns
+  * May be unique or non-unique
+  * Provides a physical access path and is also a mechanism for determining where the data is stored
+* Unique Primary Index(UPI)
+* Non Unique Primary Index
+* Unique Secondary Index
+* Non Unique Secondary Index: One or more columns, may have duplicate values and is used to improve access.
+* Partition Primary Index
+  * Can quickly improve the performance of complex range-based queries.
+  * Partitioned Primary Index (PPI) is an indexing mechanism that is useful in improving the performance of certain queries. 
+  * When rows are inserted into a table, they are stored in an AMP and arranged by their row hash order. 
+  * When a table is defined with PPI, the rows are sorted by their partition number. Within each partition, they are arranged by their row hash. Rows are assigned to a partition based on the partition expression defined.
+* No Primary Index(): Supports faster loads and inserts into tables with no primary index defined.
 ***
 <p align="center">
   <img width="100"  alt="END-LOGO"src="the-end.png" />
