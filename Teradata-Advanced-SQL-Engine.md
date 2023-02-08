@@ -176,7 +176,7 @@ Not all data tiers are used for every feed coming in from a data source.
 * Means of creation of the data
 * Purpose of the data
 * Time and date of creation along with the creator and author of the data
-*Location on a computer network where the data was created
+* Location on a computer network where the data was created
 * Standards used and file size
 
 #### Data Dictionary
@@ -184,10 +184,29 @@ Not all data tiers are used for every feed coming in from a data source.
 * composed of tables and views
 * views provide access to the information in the tables
 <p>
-  <img width="400"  alt="Tables Store"src="tablestore.PNG" />
-  <img width="400"  alt="Views Store"src="viewstore.PNG" />
+  <img width="250"  alt="Tables Store"src="tablestore.PNG" />
+  <img width="250"  alt="Views Store"src="viewstore.PNG" />
 </p>
 <br>
+
+### Components within the Teradata Advanced SQL Engine
+* Virtual storage: TVS using SSD. Automatically store data on faster devices if that data get accessed frequently. Less visited stored on HDD.
+* BYNET: handles internal communication of the engine.(From Parsing Engine to AMP)
+* Node: general purpose processing unit under the control of a single os as hardware platform.
+* Hot Standby Node: improve availability and maintain performance in case of node failure. Does not normally participate in operations but can be brought into compensate for the loss of a node
+* Additional Options: other options to ensure data integrity
+* Archive/Recovery(Teradata ARC): archiving data to tape and disk and restoring data to the Engine
+* Teradata Data-Steam Architecture(DSA): similar functionality to ARC, but provides improved performance
+* Clique: set of nodes share a common set of disk arrays. Cabling nodes to the same disk arrays creates a clique
+
+### Virtual Components
+* Parsing Engine: PE performs session control, query parsing, security validation, query optimization and query dispatch.Interprets sequel requests, receives input records and passes data.Send messages through message passing layer to AMP.
+* Access Module Processor: AMP is responsible for managing a portion of the database. Do all the physical work and generating an answer set.
+* Virtual Disk Space: is associated with an AMP.Tables and rows are stored in this space. Usually assigned to two or more disk drives in a disk array.
+* Message Passing Layer: is the communication layer which is responsible for carrying messages between virtual processors(AMP and PE)
+* <p>
+  <img width="250"  alt="MPL"src="mpl.PNG" />
+</p>
 
 ***
 <p align="center">
