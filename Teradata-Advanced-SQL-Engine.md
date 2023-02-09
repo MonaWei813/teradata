@@ -7,18 +7,16 @@
 ## Module 1 *Database Concept*
 * database provides an organized mechanism for storing, managing and retrieving data.
 * not all database can perform the same actions:
-  * retrieve
-  * update
-  * cross-reference
-  * perform complex aggregate calculations
+  * **retrieve** all records that match certain criteria
+  * **update** records in bulk
+  * **cross-reference** records in different tables
+  * **perform** complex aggregate calculations
 
 ### Common types of Databases
 * relational: is structured to recognize connections between stored items of information. SQL
 * No-SQL: only to retrieve information
 ***
 ## Module 2 *Relational Database*
-* it can cross-reference records in different tables
-* relational concept: entity(information), cardinality(number of rows), degree(number of columns)
 * based on mathematical set theory
 * mathematical concept: relation(table), tuple(row), attribute(column)
 * in a table:
