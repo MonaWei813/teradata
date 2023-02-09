@@ -161,10 +161,138 @@ Its **not always feasible** to use Access_ID and Access_Key while selecting data
 * **ORDER BY** sorts the data on the AMP prior to invoking WRITE_NOS
   
 ## Module 3 *QueryGrid*
+**Teradata QueryGrid** is a **data analytics fabric** that provides high-performing data **access, processing, and movement** across two or more data sources.
+* **Analytics Fabric** powered by QueryGrid. It is a cohesive data fabric that spans multiple systems.
+* **Access** means facilitates connecting to diverse systems, such as Oracle and Hadoop.
+* **Processing** provides the flexibility to integrate different file systems, operating systems, data types, analytic engines, and system design characteristics. 
+* **Movement** means query execution is secure and optimized across multiple processing engines and repositories.
+### QueryGrid Data Fabric
+* Users submit queries through the Advanced SQL Engine
+* QueryGrid coordinates data transfer between the engines and transfers results
+* QueryGrid supports external data access and multi-system analytics
+* Users no longer need to perform data movement to execute advanced analytics
+* QueryGrid supports several entry points and targets
+![alt-text](qgdataf.PNG "QueryGrid Data Fabric")
+
+#### Data Transfer Process
+1. User issues query from entry point system (Teradata) accessing data in a foreign system (Presto)
+2. Remote part of query is sent to foreign server (Presto)
+3. Query executes on foreign server (Presto)
+4. Data type conversion is done in parallel on foreign server (Presto)
+5. Data is pushed in parallel back to Teradata from Presto
+6. Final query steps with local result occurs on the entry point system (Teradata)
+
+### QueryGrid Architecture Components
+![alt-text](qgarch.PNG "QueryGrid Architecture Components")
+
+* **QueryGrid Manager**
+  * provides centralized administration and monitoring
+  * perform functions
+  * can be clustered for high availability
+* **Watch Dog**
+  * manages QG software on each node and reports status and logs to the QG manager
+  * fabric or driver crashes are reported to QG manager. It will attempt to restart any crashed processes
+* **Fabric** provides the services and libraries that connectors use to communicate
+* **Connector** connects a data source to the Fabric
+* **Driver** receives requests from the initiator connector and submits the requests to the target system
+* **Link** is the pair of connectors(initiator and target endpoints)
+* **Viewpoint** provide configuration and monitoring of user interfaces
+### QueryGrid Key Differentiators
+* Enables **connection** from one environment to another for processing and data at scale
+* **Optimization** from Teradata Infrastructure
+* **Leverages the power** of the Teradata Advanced SQL Engine
+* Fully **parallel** data movement
+* **Decrease data movement**
+#### Features to decrease data movement
+* **Push-Down Processing**
+  * support native code and execution on target/remote systems
+  * Processing can be **pushed** to the target/remote system to leverage native functionality and enhancements
+* **Remote Table Optimization(RTO)**
+  * allows Teradata’s Optimizer to use foreign/remote system statistics to make query decisions
+  * decides when and where to perform the final join process – locally (on entry point) or remotely (on target)
+### Using QueryGrid
+Accessing remote/target systems may be obscured using **views** inside of Teradata. **Using views to obscure remote/target system access** provides the following benefits: 
+* Supports access controls 
+* Abstracts the complexity to end users
+* Extends support to BI and other tools
+* Allows for granular workload management control
+QueryGrid provides **bridges** between systems and expands choices for data placement.
 ***
 ## Module 4 *Teradata Parallel Transporter(TPT)*
+Is effectively an **object-oriented software system** that executes multiple instances of data extraction, transformation, and load functions in a scalable, high-speed parallel processing environment. It is an effectively parallel load and export utility.
+### Characteristics
+* **High Performance**
+  * Parallel export and load operators eliminate sequential bottlenecks
+  * Data Streams eliminate the overhead of intermediate (persistent) storage
+  * Scalable
+  * End-to-end parallelism
+* **Easy to use** 
+  * Single SQL like scripting language
+  * Access to various data sources
+* **Extensible**
+  * Direct API enables third party partners to write 'C' code to directly load/unload data to/from Teradata
+### TPT Operators
+**Software components** that provide the actual data extraction, transformation, and load functions in support of various data stores. 
+* **Producer Data Extraction Functions**
+  * get data from Vantage or external data store
+  * generate data internally
+  * pass data to other operators by way of the operator interface
+* **Consumer Data Loading Functions**
+  * accept data from other operators by way of the operator interface
+  * load data into Vantage or to external data store
+* **Filter Data Transformation Functions**
+  * Selection, validation, cleansing and condensing
+* **Standalone Operators**
+  * perform processing that does not involve receiving data from or sending data to the data stream
+#### Architecture
+![alt-text](oparch.PNG "Architecture Components")
 
+### INMOD and OUTMOD
+The application utilities allow input data to be read or pre-processed by a user-written **INMOD routine**. The routines call the defined program module, which is responsible for delivering an input record.
+* **INMOD**
+  * **a user exit routine** used by utilities to supply or pre-process input records
+  * **Generating** records to be passed to the utility
+  * **Validating** a data record before passing it to the utility
+  * **Reading** data directly from one or more database systems such as Oracle
+  * **Converting** fields in a data record before passing it to the utility
+* **OUTMOD**
+  * **a user-written program** that does post-processing of the data after the utility (e.g., FastExport) has retrieved the data. 
+  * **Export** data to an **Output Modification (OUTMOD) routine**. You can write an OUTMOD routine to **select, validate, and pre-process** exported data.
 
+### TPT Access Module
+software modules that **encapsulate the details of access** to various data stores. Access modules provide TPT with **transparent and uniform** access to various data sources.
+<p>
+<img width="350" src="am.PNG", alt-text="TPT Access Module Options")>
+</p>
+
+### TPT Operators and Teradata Utilities
+**TPT replaces the Teradata Utilities.**
+|   Operator      | Equivalent   | Purpose                                                    |
+| ----------------|:------------:| ----------------------------------------------------------:|
+|   Load          | FastLoad     | Loads an empty table (high-volume load)                    |
+|   Update        | MultiLoad    | Updates, inserts, and deletes                              |
+|   Stream        | TPump        | Continuously loads database tables using SQL protocol      | 
+|   DDL           | BTEQ         | 	Executes DDL, DCL, and self-contained DML SQL statements  |                                                 |
+|   Export        |FastExport| Exports data from the database (high-volume export)|
+|   DataConnector | Data Connector (PIOM)     | Reads data from and writes data to flat files                  |
+|   ODBC          | Teradata Access Module for OLEDB    | Exports data from any non-database source that has an ODBC driver |
+|   SQL           | BTEQ        | Inserts data into a database table using SQL protocol    |
+
+## Quiz
+<p>
+<img width="350" src="de1q1.PNG", alt-text="Q1")>
+<img width="350" src="de1q2.PNG", alt-text="Q2")>
+<img width="350" src="de1q3.PNG", alt-text="Q3")>
+<img width="350" src="de1q4.PNG", alt-text="Q4")>
+<p>
+  Q5. PARQUET is the only format that supported by WRITE_NOS
+</p>
+<img width="350" src="de1q6.PNG", alt-text="Q6")>
+<img width="350" src="de1q7.PNG", alt-text="Q7")>
+<img width="350" src="de1q8.PNG", alt-text="Q8")>
+<img width="350" src="de1q9.PNG", alt-text="Q9")>
+
+</p>
 ***
 <p align="center">
   <img width="100"  alt="END-LOGO"src="the-end.png" />
