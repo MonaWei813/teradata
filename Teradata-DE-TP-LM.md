@@ -339,6 +339,21 @@ Columns of tables that are **created prior** to changing the default formats con
   * ROLE is **not supported** in the FastLoad and MultiLoad utilities
   * Vantage extension to the ANSI SQL:2011 standard
 ***
+## Quiz
+<p>
+<img width="350" src="de3q1.PNG", alt-text="Q1")>
+<img width="350" src="de3q2.PNG", alt-text="Q2")>
+<img width="350" src="de3q3.PNG", alt-text="Q3")>
+<img width="350" src="de3q4.PNG", alt-text="Q4")>
+<img width="350" src="de3q5.PNG", alt-text="Q6")>
+<img width="350" src="de3q6.PNG", alt-text="Q6")>
+<img width="350" src="de3q7.PNG", alt-text="Q7")>
+<img width="350" src="de3q8.PNG", alt-text="Q8")>
+<img width="350" src="de3q9.PNG", alt-text="Q9")>
+<img width="350" src="de3q10.PNG", alt-text="Q10")>
+<p>
+
+***
 
 <p align="center">
   <img width="100"  alt="END-LOGO"src="the-end.png" />
