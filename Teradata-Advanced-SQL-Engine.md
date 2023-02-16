@@ -168,7 +168,7 @@ Not all data tiers are used for every feed coming in from a data source.
 * view: virtual table, not storing any information
 * fallback: protecting the data against AMP failure
 * macro: bundles multiple functions together
-* trigger: defines a catalyst action and subsequent activities
+* trigger: defines a catalyst action and subsequent activities, two types: statement and row
 
 #### Metadata
 * Means of creation of the data
