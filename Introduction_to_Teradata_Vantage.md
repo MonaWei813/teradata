@@ -130,7 +130,7 @@ Step 3 decrease the latency.
 
 ### Overall image of the components:
 <p align="center">
-  <img   alt="Teradata Component"src="teracomp.PNG" />
+  <img   alt="Teradata Component"src="teracomp.png" />
 </p>
 
 * tools are in the turquoise color
