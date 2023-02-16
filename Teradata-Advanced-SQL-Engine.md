@@ -198,14 +198,19 @@ Not all data tiers are used for every feed coming in from a data source.
 * Clique: set of nodes share a common set of disk arrays. Cabling nodes to the same disk arrays creates a clique
 
 ### Virtual Components
+
+<p>
+  <img width="250"  alt="MPL"src="mpl.PNG" />
+</p>
+
 * Parsing Engine: PE performs session control, query parsing, security validation, query optimization and query dispatch.Interprets sequel requests, receives input records and passes data.Send messages through message passing layer to AMP.
 * Access Module Processor: AMP is responsible for managing a portion of the database. Do all the physical work and generating an answer set.
 * Virtual Disk Space: is associated with an AMP.Tables and rows are stored in this space. Usually assigned to two or more disk drives in a disk array.
 * Message Passing Layer: is the communication layer which is responsible for carrying messages between virtual processors(AMP and PE) and making parallelism possible. It merges answer sets back to PE. It is a combination of PDE, BYNET software and BYNET hardware for MPP system.
-  
-<p>
-  <img width="250"  alt="MPL"src="mpl.PNG" />
-</p>
+* Virtual processor types:
+![Virtual-Processors](vpro.PNG)
+
+
 
 * Parallel Database Extensions(PDE): software interface layer that lies between the operating system and Teradata Advanced SQL Engine. Supports the parallelism which give the Engine its speed and linear scalability. The ability include:
   * Run in a parallel environment.
