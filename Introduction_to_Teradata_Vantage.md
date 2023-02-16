@@ -129,7 +129,10 @@ Step 3 decrease the latency.
 
 
 ### Overall image of the components:
-![alt text](teracomp.PNG "Logo Title Text 1")
+<p align="center">
+  <img   alt="Teradata Component"src="teracomp.PNG" />
+</p>
+
 * tools are in the turquoise color
   
 ### First Party Service Integration
